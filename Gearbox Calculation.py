@@ -2,7 +2,7 @@ import math
 import time
 
 print("-----------------------------------------------------------------")
-print("|Single Speed Gearbox Calculation V1.6 Created by Brandon Miller|")
+print("|Single Speed Gearbox Calculation V1.0 Created by Brandon Miller|")
 print("-----------------------------------------------------------------")
 
 while True:
@@ -482,7 +482,7 @@ while True:
             MotorCount = input("Motors Per Gearbox: ")
             mc = float(MotorCount)
             TravelDistance = input("Travel Distance (in): ")
-            tc = float(TravelDistance)
+            td = float(TravelDistance)
             AppliedLoad = input("Applied Load (lbs): ")
             al = float(AppliedLoad)
             PulleyDia = input("Pulley Diameter (in): ")
@@ -669,13 +669,21 @@ while True:
             LSL = float(LinearSpeedLoad)
             LSLR = round(LSL, 2)
 
+            ELVTravelDistanceNoLoad = (1/(LSNL/td))
+            ETDNL = float(ELVTravelDistanceNoLoad)
+            ETDNLR = round(ETDNL, 2)
+
+            ELVTravelDistanceLoaded = (1/(LSL/td))
+            ETDL = float(ELVTravelDistanceLoaded)
+            ETDLR = round(ETDL, 2)
+
             print ("Overall Ratio:",rOr,":1")
             time.sleep(0.2)
             print ("Stall Load:",STLR,"lbs")
             time.sleep(0.2)
-            print ("Elevator Linear Speed Unloaded:",LSNLR,"in/s")
+            print ("Elevator Linear Speed Unloaded:",LSNLR,"in/s","Travel Distance in",ETDNLR,"sec")
             time.sleep(0.2)
-            print ("Elevator Linear Speed Loaded:",LSLR, "in/s")
+            print ("Elevator Linear Speed Loaded:",LSLR, "in/s","Travel Distance in",ETDLR,"sec")
             time.sleep(0.2)
             print ("Current Draw Per Motor:",CDR,"AMPS")
             time.sleep(0.2)
@@ -878,7 +886,7 @@ while True:
             sc = float(SC)
             fc = float(FC)
 
-            CurrentDraw = ((((sc*mc)-(fc*mc))/(st*mc))*(dl/2*(rT)*fc/(0.2248*39.37)+(fc*mc))/mc)
+            CurrentDraw = ((((((sc*mc)-(fc*mc))/(st*mc))*(dl/2*(rT)*rd/(0.2248*39.37)))+(fc*mc))/mc)
             CD = float(CurrentDraw)
             CDR = round(CD, 2)
 
@@ -890,17 +898,27 @@ while True:
             ILSNL = float(IntakeLSpeedNoLoad)
             ILSNLR = round(ILSNL, 2)
 
-            IntakeSpeedLoad = ((((-1)*((p*(rT)*(360/60))/(StallDragLoad))*(dl))+(p*(rT)*(360/60)))*(math.pi*2(rd/2)/360)*IntakeSideNum)
-            ILSL = float(IntakeSpeedLoad)
+            IntakeLSpeedLoaded = ((((-1)*((p*(rT)*(360/60))/(SDL))*(dl))+(p*(rT)*(360/60)))*(math.pi*2*(rd/2)/360)*isn)
+            ILSL = float(IntakeLSpeedLoaded)
             ILSLR = round(ILSL, 2)
+
+            INTTravelDistanceNoLoad = (1/(ILSNL/td))
+            ITDNL = float(INTTravelDistanceNoLoad)
+            ITDNLR = round(ITDNL, 2)
+
+            INTTravelDistanceLoaded = (1/(ILSL/td))
+            ITDL = float(INTTravelDistanceLoaded)
+            ITDLR = round(ITDL, 2)
+
+
 
             print ("Overall Ratio:",rOr,":1")
             time.sleep(0.2)
             print ("Stall Drag Load:",SDLR,"lbs")
             time.sleep(0.2)
-            print ("Intake Linear Speed Unloaded:",ILSNLR,"in/s")
+            print ("Intake Linear Speed Unloaded:",ILSNLR,"in/s","Travel Distance in",ITDNLR,"sec")
             time.sleep(0.2)
-            print ("Intake Linear Speed Loaded:",ILSLR, "in/s")
+            print ("Intake Linear Speed Loaded:",ILSLR, "in/s","Travel Distance in",ITDLR,"sec")
             time.sleep(0.2)
             print ("Current Draw Per Motor:",CDR,"AMPS")
             time.sleep(0.2)
@@ -916,5 +934,9 @@ while True:
     ANS = str(input("Would you like to do something else? Y/N "))
     if ANS == 'N':
         break
+    elif ANS == 'n':
+        break
     elif ANS == 'Y':
+        continue
+    elif ANS == 'y':
         continue
