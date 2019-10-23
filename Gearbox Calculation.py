@@ -2,7 +2,7 @@ import math
 import time
 
 print("-----------------------------------------------------------------")
-print("|Single Speed Gearbox Calculation V1.0 Created by Brandon Miller|")
+print("|Single Speed Gearbox Calculation V1.1 Created by Brandon Miller|")
 print("-----------------------------------------------------------------")
 
 while True:
